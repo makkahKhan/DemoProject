@@ -1,28 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import { categories } from '../../appData/Category'; 
 import { products } from '../../appData/Product';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { category } from '../../types/Interface';
 import {Products} from '../../types/Interface'
+import { useNavigation } from '@react-navigation/native';
+import { shopProp } from '../../types/Interface';
 
-const Shop = () => {
+const Shop : React.FC<shopProp> = ({products}) => {
+    const navigation = useNavigation();
+
     const [selectedCategory , setSelectedCategory] = useState('All');
+  
     const filtered = selectedCategory === 'All' ? products  : products.filter(p => p.category == selectedCategory);
-
+    
+   
      const renderCategory = ({item}: {item : category}) => {
       const isActive  = item.key == selectedCategory;
       return (
           <TouchableOpacity
                             key={item.key}
                             onPress={() => setSelectedCategory(item.key)}>
-                            <View style={styles.category}>
+                            <View style={styles.categoryContainer}>
+                              <View style={styles.category}>
                                 <View style={[styles.catIcon, isActive && styles.catIconActive]}>
                                     <Image source={item.image} style={styles.catImg}/>
                                 </View>
                                 <Text style={[isActive && styles.catTextActive]}>
                                     {item.key}
                                 </Text>
+                            </View>
                             </View>
            </TouchableOpacity>
       )}
@@ -34,7 +42,9 @@ const Shop = () => {
           <EvilIcons name={item.icon} size={25} color={'white'}/>
         </View>
        <View style={styles.proContent}>
-        <Text style={styles.productTitle}>{item.title}</Text>
+         <TouchableOpacity onPress={() => navigation.navigate('Addtocart',{product : item})}>
+          <Text style={styles.productTitle}>{item.title}</Text>
+         </TouchableOpacity>
         <Text style={styles.productPrice}> <Text style={{color : '#d1aa0fff'}}>$</Text>{" "}{item.price}</Text>
         </View>
        </View>
@@ -43,6 +53,7 @@ const Shop = () => {
   return (
     <View>
       <FlatList<category>
+     
         data={categories}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -58,10 +69,16 @@ const Shop = () => {
       </View>
     <FlatList
     data={filtered} 
+    scrollEnabled={false}
     keyExtractor={(item) =>item.id.toString()}
     numColumns={2}
     showsVerticalScrollIndicator={true}
-    renderItem={renderProduct}/>
+    renderItem={renderProduct}
+      ListEmptyComponent={() => (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+      <Text style={{ fontSize: 18, color: '#b76e79', marginTop : 100 }}>No products found.</Text>
+    </View>
+  )}/>
 
     </View>
    </View>
@@ -73,9 +90,10 @@ export default Shop
 const styles = StyleSheet.create({
 //category styling;
       categoryContainer: {
-        marginVertical: 15,
+        marginVertical: 10,
+        marginTop : 10,
         flexDirection: 'row',
-        gap: 20
+        gap: 18
     },
     category: {
         alignItems: 'center'
@@ -118,14 +136,15 @@ productTopContainer : {
  justifyContent : 'space-between',
  marginHorizontal : 10,
  position : 'relative',
+
 },
 heartIcon: {
  position : 'absolute',
  top : 7,
- right : 3,
+ right : -3,
  backgroundColor : '#b76e79',
  padding : 4,
- borderTopRightRadius : 10,
+ borderTopRightRadius : 9,
   borderBottomLeftRadius : 10,
  alignItems : 'center',
  justifyContent : 'center'
@@ -147,10 +166,11 @@ padding: 6,
 
 },
  productImage : {
-    width : 168,
+    width : 160,
     borderTopRightRadius : 10,
     height : 180,
     borderRadius: 10,
+     
  },
   productTitle: {
     fontWeight : '500',

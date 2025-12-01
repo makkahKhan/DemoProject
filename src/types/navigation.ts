@@ -1,3 +1,4 @@
+import { Products } from "./Interface";
 
 
 export type RootStackParamList = {
@@ -6,5 +7,6 @@ export type RootStackParamList = {
     Profile : undefined;
     WhishList : undefined;
     Cart : undefined;
-    Main : undefined
+    Main : undefined;
+    Addtocart : {product : Products};
 }

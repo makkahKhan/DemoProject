@@ -12,3 +12,20 @@ export interface Products {
     image : any;
     price : number,    
 }
+
+export interface WishLists {
+     id : number,
+   title : string,
+   category : string,
+   image : any,
+   price : number
+}
+
+
+export interface cartItems extends Products {
+  quantity  : number,
+}
+
+export interface shopProp {
+  products : Products[];
+}

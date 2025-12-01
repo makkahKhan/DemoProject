@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 interface HeaderItemProps {
- title: string;
-  name ?: string;
+ title ?: string;
+ name ?: string;
 }
 
-const Header : React.FC<HeaderItemProps> = ({ title}) => {
+const Header : React.FC<HeaderItemProps> = ({title}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
@@ -27,6 +27,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
+    marginTop : 40,
     padding: 20,
     paddingBottom: 10,
   },

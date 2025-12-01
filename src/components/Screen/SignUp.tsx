@@ -22,19 +22,20 @@ const SignUp = () => {
        </View>
           <View style={styles.signUpContainer}>
         <Fontawesome size={25} color={"#6f6f6f"} name={'user'} style={styles.signUpicon}/>
-        <TextInput placeholder='Enter Name'  style={styles.InputText}/>
+        <TextInput placeholder='Enter Name'  style={styles.InputText} placeholderTextColor={'gray'}/>
       </View>
        <View style={styles.signUpContainer}>
-        <Fontawesome size={25} color={"#6f6f6f"} name={'lock'} style={styles.signUpicon}/>
-        <TextInput placeholder='Enter Name' style={styles.InputText}/>
+        <Fontawesome size={25} color={"#6f6f6f"} name={'lock'} style={styles.signUpicon}/>    
+        <TextInput placeholder='Enter Password' style={styles.InputText} secureTextEntry placeholderTextColor={'gray'}/>
+
       </View>
        <View style={styles.signUpContainer}>
         <Fontawesome size={22} color={"#6f6f6f"} name={'envelope'} style={styles.signUpicon}/>
-        <TextInput placeholder='Enter Name' style={styles.InputText}/>
+        <TextInput placeholder='Enter Email' style={styles.InputText} placeholderTextColor={'gray'}/>
       </View>
        <View style={styles.signUpContainer}>
         <Fontawesome size={33} color={"#6f6f6f"} name={'mobile-phone'} style={styles.signUpicon}/>
-        <TextInput placeholder='Enter Name'  style={styles.InputText}/>
+        <TextInput placeholder='Enter Phone number'  style={styles.InputText} placeholderTextColor={'gray'}/>
       </View>
        </View>       
        <View style={styles.createContainer}>
@@ -43,11 +44,12 @@ const SignUp = () => {
          <Fontawesome size={20}  color={"white"}  name={"arrow-right"}/>
           </LinearGradient>
        </View>
-       <View style={styles.footerContainer}>
-        <TouchableOpacity onPressIn={handleLogin}>
+       <View style={styles.footerContainer}>      
          <Text style={styles.footerText}>Have already an account?
-         <Text style={{textDecorationLine :"underline", color : '#b76e79'}}>Login</Text> </Text>
-        </TouchableOpacity>
+           <TouchableOpacity onPress={handleLogin}>      
+      <Text style={{textDecorationLine :"underline", color : '#b76e79'}}>Login</Text></TouchableOpacity>
+     </Text>
+        
         <Text style={styles.footerText}>Or create account using social media</Text>
         <View style={styles.IconContainer}>
         <View style={styles.IconFacebook}><Fontawesome size={22}name ={"facebook"} color={'white'}/></View>
@@ -83,12 +85,13 @@ const styles = StyleSheet.create({
     textAlign : 'center',
     fontSize : 30,
     marginBottom : 30,
-    fontWeight : 500
+    fontWeight : 500,
+    marginTop :  -50
   },
   signUpContainer: {
     marginVertical : 10,
     elevation : 20,
-    backgroundColor : "#f2f2f2",
+     backgroundColor : "#f4f4f4ff",
     borderRadius : 40,
     flexDirection : 'row',
     padding : 8,

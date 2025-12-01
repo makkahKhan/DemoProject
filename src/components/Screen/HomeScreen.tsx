@@ -1,18 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
 import Octicons from 'react-native-vector-icons/Octicons'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HeroSection from '../CustomComponents/HeroSection'
 import Shop from '../CustomComponents/Shop'
+import { products } from '../../appData/Product';
+
 
 
 const HomeScreen = () => {
+ 
+   const [searchTerm ,  setSearchTerm] = useState('');
+    
+    const lorwer = searchTerm.toLowerCase();
+     const filter = searchTerm ? 
+         products.filter(p => (p.title && p.title.toLowerCase().includes(lorwer)) || 
+                             (p.category && p.category.toLowerCase().includes(lorwer)))
+                             : products  
+
+
+      
   return (
   
     <ScrollView
-    showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}>
+       scrollEnabled={true}
+       contentContainerStyle={styles.container}>
         <View>
           <View style={styles.Headercontainer}>
             <View style={styles.HeaderIcon}><Octicons size={28} name={"apps"} color={'black'} /></View>
@@ -21,7 +34,7 @@ const HomeScreen = () => {
           <View style={styles.searchContainer}>
             <View style={styles.searchLeft}>
               <FontAwesome name="search" size={27} color="black" />
-              <TextInput placeholder="Search..." style={styles.searchText} />
+              <TextInput placeholder="Search..." style={styles.searchText} value={searchTerm} onChangeText={setSearchTerm} />
             </View>
             <View style={styles.searchRight}>
               <Text style={styles.verticalLine} />
@@ -29,7 +42,7 @@ const HomeScreen = () => {
             </View>
           </View>
           <HeroSection />
-          <Shop/>
+          <Shop products={filter}/>
         </View>
         
       

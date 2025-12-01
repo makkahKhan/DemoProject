@@ -1,5 +1,5 @@
 import React from 'react'
-import { View ,Text,StyleSheet ,Image, TouchableOpacity } from 'react-native'
+import { View ,Text,StyleSheet ,Image, TouchableOpacity , ScrollView} from 'react-native'
 import Header from '../../navigation/Header'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -18,6 +18,7 @@ const ProfileScreen = () => {
   return (
    
      <View>
+      <ScrollView>
       <Header title="Profile" />
       <View style={styles.container}>
        <View style={styles.camerIcon}>
@@ -114,6 +115,7 @@ const ProfileScreen = () => {
       
    
        </View> 
+       </ScrollView>
      </View>
   )
 }

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
   const loginData = { username: 'user', password: '123' };
-    const navigation = useNavigation();
+      const navigation = useNavigation();
       const [username, setUsername] = useState('');
       const [password , setPassword] = useState('')
       const[error , setError] = useState<String | null>(null);
@@ -18,11 +18,11 @@ const Login = () => {
       const trimedUserName = username.trim();
       const trimedPassword = password.trim();
       if(!trimedUserName){
-         setError("please enter email");
+         setError("required");
          return
       } 
         if(!trimedPassword){
-         setError("please enter password");
+         setError("required");
          return;
       } 
         setError(null);
@@ -50,28 +50,32 @@ const Login = () => {
       <View style={styles.inputContainer} >
         <FontAwesome name={"user"} size={25} color={"#6f6f6f"} style={styles.inputIcon}/>
         <TextInput style={styles.inputText} placeholder='Enter User Name' value={username}
-          onChangeText={text => setUsername(text)}/>
-         {error ? <Text style={{color : 'red'}}>{error}</Text> : null}
-
+          onChangeText={text => setUsername(text)} placeholderTextColor={'gray'}/> 
+          <View style={{marginHorizontal : 70 , marginBottom : 20 ,marginTop : 20, alignItems: 'flex-end'}}>
+           <Text style={{color : 'red'}}>{error}</Text> 
+          </View>              
      </View>
+      
 
        <View style={styles.inputContainer} >
         <FontAwesome name={"lock"} size={25} color={"#6f6f6f"} style={styles.inputIcon}/>
-        <TextInput style={styles.inputText} placeholder='Enter User Password' secureTextEntry value={password}
+        <TextInput style={styles.inputText} placeholder='Enter User Password' placeholderTextColor={'gray'} secureTextEntry value={password}
         onChangeText={text => setPassword(text)} />
-        {error ? <Text style={{color : 'red'}}>{error}</Text> : null}
-     </View>
-     <View ><Text style={styles.forgetPassword}>Forget Your Password?</Text></View>
+            <View style={{marginHorizontal : 40 , marginBottom : 20 ,marginTop : 20,}}>
+          <Text style={{color : 'red'}}>{error}</Text> 
+          </View>    
+          </View>
+     <View><Text style={styles.forgetPassword}>Forget Your Password?</Text></View>
      <View style={styles.signInButtonContainer}>
 
         <Text style={styles.signIn}>Sign In</Text>
      <TouchableOpacity onPress={handleLogin}>
-        <LinearGradient colors={['#b76e79', '#b76e79', '#373636ff']} style={styles.LinearGradient}>
+        <LinearGradient colors={['#b76e79', '#b76e79', '#373636ff']}  style={styles.LinearGradient}>
         <FontAwesome size={20}  color={"white"}  name={"arrow-right"}/>
        </LinearGradient>
          </TouchableOpacity>
      </View>
-     <TouchableOpacity onPressIn={handleRegister}>
+     <TouchableOpacity onPress={handleRegister}>
       <Text style={styles.footerText}>Don't have an account?
         <Text style={{textDecorationLine :"underline", color : '#b76e79'}}>Create</Text>
         </Text>
@@ -121,7 +125,7 @@ const styles = StyleSheet.create({
         marginBottom : 40
     },
     inputContainer : {
-        backgroundColor : "#f2f2f2",
+        backgroundColor : "#f4f4f4ff",
         flexDirection : "row",
         marginHorizontal : 30,
         borderRadius :20,
@@ -129,6 +133,7 @@ const styles = StyleSheet.create({
         alignItems : 'center'  ,
         marginBottom : 20,
         height : 60,
+        color : 'red'
         
 
     },
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     inputText:{
         fontSize:17,
         padding : 15,
-         color : '#535252ff',
+         color : 'gray',
     },
     forgetPassword : {
         color : '#6f6f6f',

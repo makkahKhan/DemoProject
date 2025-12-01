@@ -6,11 +6,11 @@ import ProfileScreen from '../components/Screen/ProfileScreen'
 import CartScreen from '../components/Screen/CartScreen'
 import WishList from '../components/Screen/WishList'
 import Ionicons from 'react-native-vector-icons/Ionicons'; 
-
+import { useCart } from '../CartContext'
 
 const BottomTab  = () => {
     const Tab = createBottomTabNavigator();
-    
+     const { cartItems } = useCart();
   return ( 
    
       <Tab.Navigator       
@@ -35,7 +35,9 @@ const BottomTab  = () => {
            tabBarInactiveTintColor: 'gray',
         })}>
         <Tab.Screen name="Home" component={HomeScreen} options={{title : 'Home'}}/>
-         <Tab.Screen name="Cart" component={CartScreen} options={{title : 'Cart'}}/>
+         <Tab.Screen name="Cart" component={CartScreen} options={{title : 'Cart',
+          tabBarBadge : cartItems.length > 0 ? cartItems.length : undefined
+         }} />
          <Tab.Screen name="WishList" component={WishList} options={{title : 'WishList'}}/>
          <Tab.Screen name="Profile" component={ProfileScreen}options={{title : 'Profile'}}/>
 
