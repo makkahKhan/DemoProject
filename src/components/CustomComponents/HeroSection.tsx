@@ -5,7 +5,7 @@ import { View , Text, StyleSheet  ,ImageBackground , TouchableOpacity} from 'rea
 const HeroSection = () => {
   return (
      <View style={styles.heroContainer}>
-       <ImageBackground source={require('../../assets/hero-4.png')} style={styles.heroImg}>
+       <ImageBackground source={require('../../assets/banner.png')} style={styles.heroImg}>
          <View style={styles.heroContent}>  
           <Text style={styles.heroText}>Super Sale Discount</Text>
           <Text style={{fontSize : 20 , fontWeight : 'bold'}}> up to <Text style={{fontSize : 30 , fontWeight : 'bold' , color : '#f0f0f0ff'}}>50%</Text></Text>

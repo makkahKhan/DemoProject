@@ -8,6 +8,7 @@ import AddToCart from './src/components/Screen/AddToCart';
 import { CartProvider } from './src/CartContext';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './src/utils/ToastConfig';
+import GetStarted from './src/components/Screen/GetStarted';
 
 
 
@@ -17,9 +18,10 @@ export default function App() {
     <CartProvider>
        <NavigationContainer> 
        <Stack.Navigator 
-        initialRouteName='SignUp'
+        initialRouteName='GetStarted'
         screenOptions={{ headerShown: false }}> 
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="GetStarted" component={GetStarted} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Main" component={BottomTab} />
       <Stack.Screen name="Addtocart" component={AddToCart} />

@@ -2,6 +2,8 @@
 export interface category {
     key : string;
     image : any;
+    name : string;
+    slug : any
 }
 
 export interface Products {
@@ -9,7 +11,7 @@ export interface Products {
     icon : string,
     title : string;
     category : string,
-    image : any;
+    thumbnail : any;
     price : number,    
 }
 
@@ -17,12 +19,12 @@ export interface WishLists {
      id : number,
    title : string,
    category : string,
-   image : any,
+   thumbnail : any,
    price : number
 }
 
 
-export interface cartItems extends Products {
+export interface CartItems extends Products {
   quantity  : number,
 }
 

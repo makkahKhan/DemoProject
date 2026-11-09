@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
    height : 110,
    borderRadius : 60,
    borderWidth : 3,
-   borderColor :  '#b76e79'
+   borderColor :  '#dd9024'
   },
   profileName :{
   fontWeight : 'bold',

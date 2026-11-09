@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { use, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity , Image, ScrollView } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
@@ -7,11 +7,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useCart } from '../../CartContext'
 
 import Toast from 'react-native-toast-message'
-import { Products } from '../../types/Interface'
+import { CartItems, Products } from '../../types/Interface'
 import { toastConfig } from '../../utils/ToastConfig'
 
 type RootStackParamList = {
-  Addtocart: { product: Products };
+  Addtocart: { product: CartItems };
 };
 
 type AddToCartRouteProp = RouteProp<RootStackParamList, 'Addtocart'>;
@@ -21,18 +21,42 @@ const AddToCart = () => {
   const {product} = route.params
   const {addToCart} = useCart();
   const navigation = useNavigation();
+  const [quantity , setQuantity] = useState(1);
 
+   const handleAddQuantity = () => {
+    setQuantity(quantity + 1)
+   
+  }
+
+     const handleMinusQuantity = () => {
+      if(quantity > 1){
+    setQuantity(quantity - 1)
+
+      }
+   
+  }
+ 
   const handleAdd = () => {
-    addToCart(product);
+   addToCart({ 
+    ...product,       
+    quantity: quantity  
+  });
     Toast.show({
     type: 'success',
     text2: 'Your item is added to cart successfully',
     })
     
   }
+
+ 
+
   return (
     <View style={styles.container}>
     
+     <ScrollView
+          showsVerticalScrollIndicator={true}
+          contentContainerStyle={{ paddingBottom: 100 }} 
+         >
       {/* top image side */}
       <View style={styles.topBarContainer}>
       <View style={styles.topBar}>
@@ -51,17 +75,14 @@ const AddToCart = () => {
          </View>
       </View>
        <View style={styles.imgContainer}>
-           <Image source={product.image} style={styles.cartImg}/>
+           <Image source={{uri : product.thumbnail}} style={styles.cartImg}/>
            </View>
         </View>
        {/*top image side end */}
 
          {/* content area */}
-         <View>
-        <ScrollView
-          showsVerticalScrollIndicator={true}
-          contentContainerStyle={{ paddingBottom: 100 }} 
-         >
+     
+       
              <View style={styles.bottomContainer}>
                   <View>                                       
                     <Text style={{fontSize:20, fontWeight : 500}}>{product.title}</Text>
@@ -92,7 +113,7 @@ const AddToCart = () => {
                   </View>
           </View>
          </ScrollView>
-         </View>
+      
      
            {/* content area end */}
 
@@ -100,11 +121,11 @@ const AddToCart = () => {
           <View style={styles.addBtContainer}>
             <View style={styles.buttonSection}>
              <View style={styles.quantityConatiner}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleMinusQuantity}>
               <Text style={{color : 'white' , fontSize : 30}}>-</Text>                   
               </TouchableOpacity>          
-               <Text style={{color : 'white', fontSize :20}}>1</Text>
-               <TouchableOpacity>
+               <Text style={{color : 'white', fontSize :20}}>{quantity}</Text>
+               <TouchableOpacity onPress={handleAddQuantity}>
                 <Text style={{color : 'white' , fontSize : 20}}>+</Text>           
               </TouchableOpacity>
                </View>
@@ -169,10 +190,10 @@ const styles = StyleSheet.create({
   },
   bottomContainer : {
    backgroundColor : '#fcfcfcff',
-   borderTopRightRadius : 20,
-   borderTopLeftRadius : 20,
+   borderTopRightRadius : 50,
+   borderTopLeftRadius : 50,
    padding : 20,
-  
+
 
   },
   sellerText : {
@@ -197,7 +218,7 @@ const styles = StyleSheet.create({
   },
   addBtContainer:{
   position: 'absolute',
-  bottom: 25,   
+  bottom: 50,   
   left: 0,      
   right: 0,    
   },
@@ -231,7 +252,7 @@ const styles = StyleSheet.create({
   ,
    desciptionBtn : {
     marginBottom : 15,
-    backgroundColor : '#b76e79',
+    backgroundColor : '#dd9024',
     width : 140,
     height : 45,
     borderRadius : 70,
@@ -243,9 +264,9 @@ const styles = StyleSheet.create({
   width : 380
   },
   addBtn : {
-    backgroundColor : '#b76e79',
-    width : 220,
-    height : 60,
+    backgroundColor : '#dd9024',
+    width : 200,
+    height : 50,
     borderRadius : 70,
     justifyContent : 'center',
     alignItems : 'center'

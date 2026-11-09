@@ -3,15 +3,18 @@ import { View ,Text ,StyleSheet, ScrollView, Image,FlatList} from 'react-native'
 import Header from '../../navigation/Header'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import  { WishLists } from '../../types/Interface'
-import { wishList } from '../../appData/WishList'
+import { useRoute } from '@react-navigation/native'
 const WishList = () => {
+const route = useRoute<any>();
 
+  const { wishlistItems } = route.params || { wishlistItems: [] };
+console.log("Wishlist Screen par jo data aya:", wishlistItems);
  const renderWishtListData = ({item}:{item : WishLists}) => {
   return(
       
          <View style={styles.wishListContainer}>
            <View>
-             <Image source={item.image} style={styles.wishListImg}/>
+             <Image source={{uri : item.thumbnail}} style={styles.wishListImg}/>
            </View>
            <View>
            <View style={styles.wishListContent}>
@@ -39,7 +42,7 @@ const WishList = () => {
    <Header title="WishList"/>
        <View style={styles.topContainer}>      
           <FlatList
-          data={wishList}
+          data={wishlistItems}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderWishtListData}
           contentContainerStyle={styles.scrollview} />

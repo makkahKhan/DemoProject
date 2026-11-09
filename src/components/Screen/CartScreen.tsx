@@ -1,28 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, ScrollView, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import Header from '../../navigation/Header'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useCart } from '../../CartContext'
+import { CartItems, Products } from '../../types/Interface'
+import Toast from 'react-native-toast-message'
+
 
 const CartScreen = () => {
-  const { cartItems } = useCart();
+  const { cartItems , removeFromCart } = useCart();
 
-  const renderCartItem = ({ item }: { item: any}) => {
+  const renderCartItem = ({ item }: { item: CartItems }) => {
     return (
 
       <View>
           <View style={styles.CartContainer}>
             <View>
-              <Image source={item.image} style={styles.cartImg} />
+              <Image source={{uri : item.thumbnail}} style={styles.cartImg} />
             </View>
             <View>
               <View style={styles.cartContent}>
                 <View>
                   <Text style={styles.cartText}>{item.title}</Text>
                 </View>
-                <View>
+              <TouchableOpacity onPress={() =>{ removeFromCart(item.id);
+               Toast.show({
+      type: 'success', 
+      text2: 'Item removed from cart successfully',
+    });
+              }}>
+                  <View>
                   <FontAwesome name={'trash'} size={23} color={'#efa51cff'} />
                 </View>
+              </TouchableOpacity>
               </View>
               <View>
                 <Text style={{ fontSize: 17, color: '#787878ff', marginTop: 10 }}>{item.category}</Text>
@@ -34,7 +44,7 @@ const CartScreen = () => {
                   <Text style={{ fontSize: 20, color: '#030303ff', marginTop: 10, }}>$ {item.price}</Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 16, color: '#5c5b5aff', marginTop: 10,}}>Qaty : {item.quantity}</Text>
+                  <Text style={{ fontSize: 16, color: 'rgb(214, 93, 87)', marginTop: 10, fontWeight : 'bold'}}>Qaty : {item.quantity || 1}</Text>
                 </View>
               </View>          
 
@@ -53,13 +63,13 @@ const CartScreen = () => {
       <ScrollView
         contentContainerStyle={styles.scrollview}>
         <FlatList
-          data={cartItems}
+          data={cartItems as CartItems[]}
           scrollEnabled={false}
-          keyExtractor={(items) => (items.id.toString())}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderCartItem}
           ListEmptyComponent={() => (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-             <Text style={{ fontSize: 20, color: '#b76e79', marginTop : 300 }}>Your Cart is Empty.</Text>
+             <Text style={{ fontSize: 20, color: '#ed9314', marginTop : 300 }}>Your Cart is Empty.</Text>
                 </View>
           ) } />
       </ScrollView>
@@ -90,7 +100,8 @@ const styles = StyleSheet.create({
   cartImg: {
     width: 100,
     height: 100,
-    borderRadius: 20
+    borderRadius: 20,
+    backgroundColor : '#ececec'
   }
   ,
   cartContent: {

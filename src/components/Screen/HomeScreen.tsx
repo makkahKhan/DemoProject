@@ -5,7 +5,6 @@ import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HeroSection from '../CustomComponents/HeroSection'
 import Shop from '../CustomComponents/Shop'
-import { products } from '../../appData/Product';
 
 
 
@@ -13,11 +12,11 @@ const HomeScreen = () => {
  
    const [searchTerm ,  setSearchTerm] = useState('');
     
-    const lorwer = searchTerm.toLowerCase();
-     const filter = searchTerm ? 
-         products.filter(p => (p.title && p.title.toLowerCase().includes(lorwer)) || 
-                             (p.category && p.category.toLowerCase().includes(lorwer)))
-                             : products  
+    // const lorwer = searchTerm.toLowerCase();
+    //  const filter = searchTerm ? 
+    //      products.filter(p => (p.title && p.title.toLowerCase().includes(lorwer)) || 
+    //                          (p.category && p.category.toLowerCase().includes(lorwer)))
+    //                          : products  
 
 
       
@@ -42,7 +41,7 @@ const HomeScreen = () => {
             </View>
           </View>
           <HeroSection />
-          <Shop products={filter}/>
+          <Shop/>
         </View>
         
       
@@ -57,7 +56,7 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
   ScreenContainer: {
-    backgroundColor: '#ffffffff',
+    backgroundColor: '#ffff',
     flex: 1,
   },
   container: {
